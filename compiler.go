@@ -392,7 +392,7 @@ func (c *Compiler) compileMap(r *resource, stack []schemaRef, sref schemaRef, re
 		if t, ok := m["type"]; ok {
 			switch t := t.(type) {
 			case string:
-				s.Types = []string{t}
+				s.Types = []string{strings.ToLower(t)}
 			case []interface{}:
 				s.Types = toStrings(t)
 			}

@@ -202,6 +202,8 @@ func (s *Schema) validate(scope []schemaRef, vscope int, spath string, v interfa
 		}
 	}
 
+	v = toLowercaseInterface(v)
+
 	sref := schemaRef{spath, s, false}
 	if err := checkLoop(scope[len(scope)-vscope:], sref); err != nil {
 		panic(err)
@@ -848,6 +850,13 @@ func equals(v1, v2 interface{}) bool {
 	default:
 		return v1 == v2
 	}
+}
+
+func toLowercaseInterface(val interface{}) interface{} {
+	if str, ok := val.(string); ok {
+		return strings.ToLower(str)
+	}
+	return val
 }
 
 func hash(v interface{}, h *maphash.Hash) {
